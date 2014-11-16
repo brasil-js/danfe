@@ -1,0 +1,33 @@
+{
+  "name": "danfe",
+  "version": "0.0.0",
+  "description": "Módulo node.js para gerar DANFEs em .pdf",
+  "main": "app.js",
+  "scripts": {
+    "test": "exit 0;"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brasil-js/danfe.git"
+  },
+  "keywords": [
+    "danfe",
+    "nota",
+    "fiscal",
+    "eletronica",
+    "nfe",
+    "brasil"
+  ],
+  "author": "Renato Gama <renato@gammasoft.com.br>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brasil-js/danfe/issues"
+  },
+  "homepage": "https://github.com/brasil-js/danfe",
+  "dependencies": {
+    "brasil": "0.0.31",
+    "gammautils": "0.0.62",
+    "inscricaoestadual": "0.0.2",
+    "pdfkit": "^0.7.0"
+  }
+}
