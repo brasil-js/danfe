@@ -1,6 +1,3 @@
-var gammautils = require('gammautils'),
-    brasil = require('brasil'),
-    ie = require('inscricaoestadual'),
-    Pdf = require('pdfkit');
+'use strict';
 
 module.exports = '';
