@@ -4,7 +4,7 @@
   "description": "Módulo node.js para gerar DANFEs em .pdf",
   "main": "app.js",
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test --verbose"
   },
   "repository": {
     "type": "git",
