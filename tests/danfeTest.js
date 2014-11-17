@@ -615,7 +615,6 @@ module.exports = {
 
     getModalidadeDoFreteFormatada: {
         'Verifica que as formatações estão corretas': function(test) {
-
             danfe.comModalidadeDoFrete('semFrete');
             test.equal(danfe.getModalidadeDoFreteFormatada(), '(9) Sem Frete');
 
@@ -628,6 +627,29 @@ module.exports = {
             danfe.comModalidadeDoFrete('porContaDeTerceiros');
             test.equal(danfe.getModalidadeDoFreteFormatada(), '(2) Terceiros');
 
+            test.done();
+        },
+    },
+
+    comNaturezaDaOperacao: {
+        'É possível definir a natureza da operação': function(test) {
+            danfe.comNaturezaDaOperacao('VENDA');
+
+            test.equal(danfe.getNaturezaDaOperacao(), 'VENDA');
+            test.done();
+        },
+    },
+
+    getNaturezaDaOperacao: {
+        'É possível obter a natureza da operação': function(test) {
+            danfe.comNaturezaDaOperacao('VENDA');
+
+            test.equal(danfe.getNaturezaDaOperacao(), 'VENDA');
+            test.done();
+        },
+
+        'Retorna uma string vazia mesmo antes de definir a natureza da operação': function(test) {
+            test.equal(danfe.getNaturezaDaOperacao(), '');
             test.done();
         },
     }
