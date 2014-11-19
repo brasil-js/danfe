@@ -1,6 +1,9 @@
 'use strict';
 
 var Danfe = require('../lib/danfe.js'),
+    Emitente = require('../lib/emitente'),
+    Destinatario = require('../lib/destinatario'),
+    Transportador = require('../lib/transportador'),
     danfe;
 
 function eDataValida(data) { //TODO: Mover para o gammautils
@@ -53,7 +56,7 @@ module.exports = {
 
         'Lança exceção se passar algo que não seja um número válido': function(test) {
             test.throws(function() {
-                danfe.comSerie('não é um número');
+                danfe.comSerie('Não é um número');
             });
 
             test.done();
@@ -75,9 +78,14 @@ module.exports = {
     },
 
     getSerieFormatada: {
+        'Retorna string vazia se não deinido': function(test) {
+            test.equal(danfe.getSerieFormatada(), '');
+            test.done();
+        },
+
         'Retorna a série com três digitos e zeros a esquerda': function(test) {
             danfe.comSerie(1);
-            test.equal(danfe.getSerieFormatada(), '001');
+            test.equal(danfe.getSerieFormatada(), 'Série 001');
             test.done();
         },
     },
@@ -129,9 +137,14 @@ module.exports = {
     },
 
     getNumeroFormatado: {
+        'Retorna string vazia se não definido': function(test) {
+            test.equal(danfe.getNumeroFormatado(), '');
+            test.done();
+        },
+
         'Retorna o número com nove digitos e zeros a esquerda': function(test) {
             danfe.comNumero(100);
-            test.equal(danfe.getNumeroFormatado(), '000.000.100');
+            test.equal(danfe.getNumeroFormatado(), 'Nº. 000.000.100');
             test.done();
         },
     },
@@ -225,6 +238,11 @@ module.exports = {
     },
 
     getTipoFormatado: {
+        'Retorna string vazia se o tipo não tiver sido definido': function(test) {
+            test.equal(danfe.getTipoFormatado(), '');
+            test.done();
+        },
+
         'Retorna "0" para "entrada" e "1" para "saida"': function(test) {
             danfe.comTipo('entrada');
             test.equal(danfe.getTipoFormatado(), '0');
@@ -297,6 +315,29 @@ module.exports = {
                 danfe.comDataDaEmissao(new Date());
             });
 
+            test.done();
+        }
+    },
+
+    comInscricaoEstadualDoSubstitutoTributario: {
+        'É possível definir': function(test) {
+            test.doesNotThrow(function() {
+                danfe.comInscricaoEstadualDoSubstitutoTributario('03.707.130-0');
+            });
+
+            test.done();
+        }
+    },
+
+    getInscricaoEstadualDoSubstitutoTributario: {
+        'Retorna string vazia antes de ser definido': function(test) {
+            test.equal(danfe.getInscricaoEstadualDoSubstitutoTributario(), '');
+            test.done();
+        },
+
+        'É possível recuperar o valor definido sem máscara': function(test) {
+            danfe.comInscricaoEstadualDoSubstitutoTributario('03.707.130-0');
+            test.equal(danfe.getInscricaoEstadualDoSubstitutoTributario(), '037071300');
             test.done();
         }
     },
@@ -496,8 +537,8 @@ module.exports = {
     },
 
     getEmitente: {
-        'Retorna nulo caso o emitente ainda não tenha sido definido': function(test) {
-            test.equal(danfe.getEmitente(), null);
+        'Retorna um emitente vazio caso o emitente ainda não tenha sido definido': function(test) {
+            test.ok(danfe.getEmitente() instanceof Emitente);
             test.done();
         },
     },
@@ -515,7 +556,7 @@ module.exports = {
 
     getDestinatario: {
         'Retorna nulo caso o destinatário ainda não tenha sido definido': function(test) {
-            test.equal(danfe.getDestinatario(), null);
+            test.ok(danfe.getDestinatario() instanceof Destinatario);
             test.done();
         },
     },
@@ -533,7 +574,7 @@ module.exports = {
 
     getTransportador: {
         'Retorna nulo caso o transportador ainda não tenha sido definido': function(test) {
-            test.equal(danfe.getTransportador(), null);
+            test.ok(danfe.getTransportador() instanceof Transportador);
             test.done();
         },
     },
@@ -614,6 +655,11 @@ module.exports = {
     },
 
     getModalidadeDoFreteFormatada: {
+        'Retorna string vazia se não tiver sido definifo': function(test) {
+            test.equal(danfe.getModalidadeDoFreteFormatada(), '');
+            test.done();
+        },
+
         'Verifica que as formatações estão corretas': function(test) {
             danfe.comModalidadeDoFrete('semFrete');
             test.equal(danfe.getModalidadeDoFreteFormatada(), '(9) Sem Frete');
