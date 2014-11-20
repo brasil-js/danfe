@@ -2,12 +2,15 @@
 
 var fs = require('fs'),
     path = require('path'),
+
     Gerador = require('../lib/gerador'),
     Danfe = require('../lib/danfe'),
     Emitente = require('../lib/emitente'),
     Destinatario = require('../lib/destinatario'),
     Transportador = require('../lib/transportador'),
     Endereco = require('../lib/endereco'),
+    Protocolo = require('../lib/protocolo'),
+
     pathDoArquivoPdf = path.join(__dirname, 'danfe.pdf'),
     gerador;
 
@@ -56,10 +59,15 @@ module.exports = {
                     .comCidade('Cocalzinho de Goiás')
                     .comUf('GO'));
 
+        var protocolo = new Protocolo();
+        protocolo.comCodigo('123451234512345');
+        protocolo.comData(new Date(2014, 10, 19, 13, 24, 35));
+
         var danfe = new Danfe();
         danfe.comEmitente(emitente);
         danfe.comDestinatario(destinatario);
         danfe.comTransportador(transportador);
+        danfe.comProtocolo(protocolo);
         danfe.comTipo('saida');
         danfe.comNaturezaDaOperacao('VENDA');
         danfe.comNumero(1420);
@@ -69,6 +77,9 @@ module.exports = {
         danfe.comModalidadeDoFrete('porContaDoDestinatarioRemetente');
         danfe.comInscricaoEstadualDoSubstitutoTributario('102959579');
         danfe.comInformacoesComplementares('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum explicabo reprehenderit optio amet ab temporibus asperiores quasi cupiditate. Voluptatum ducimus voluptates voluptas? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum nihil aut nostrum');
+        danfe.comValorTotalDaNota(250.13);
+        danfe.comValorTotalDosProdutos(120.10);
+        danfe.comValorTotalDosServicos(130.03);
 
         gerador = new Gerador(danfe);
         callback();

@@ -1,24 +1,15 @@
 'use strict';
 
-var Danfe = require('../lib/danfe.js'),
+var gammautils = require('gammautils'),
+    eDataValida = gammautils.date.isValidDate,
+
+    Danfe = require('../lib/danfe.js'),
     Emitente = require('../lib/emitente'),
     Destinatario = require('../lib/destinatario'),
     Transportador = require('../lib/transportador'),
+    Protocolo = require('../lib/protocolo'),
+    Impostos = require('../lib/impostos'),
     danfe;
-
-function eDataValida(data) { //TODO: Mover para o gammautils
-    //http://stackoverflow.com/questions/1353684/detecting-an-invalid-date-date-instance-in-javascript
-    if ( Object.prototype.toString.call(data) === '[object Date]' ) {
-        if ( isNaN( data.getTime() ) ) {
-            return false;
-        }
-        else {
-            return true;
-        }
-    } else {
-        return false;
-    }
-}
 
 module.exports = {
     setUp: function(cb) {
@@ -252,6 +243,105 @@ module.exports = {
 
             test.done();
         },
+    },
+
+    comValorTotalDaNota: {
+        'É possível definir': function(test) {
+            test.doesNotThrow(function() {
+                danfe.comValorTotalDaNota(1350.25);
+            });
+
+            test.done();
+        }
+    },
+
+    getValorTotalDaNotaFormatado: {
+        'Retorna formatação correta com símbolo': function(test) {
+            danfe.comValorTotalDaNota(1350.25);
+            test.equal(danfe.getValorTotalDaNotaFormatado(), 'R$ 1.350,25');
+            test.done();
+        },
+
+        'Retorna formatação correta sem símbolo': function(test) {
+            danfe.comValorTotalDaNota(1350.25);
+            test.equal(danfe.getValorTotalDaNotaFormatado(false), '1.350,25');
+            test.done();
+        },
+    },
+
+    getValorTotalDaNota: {
+        'Retorna 0 antes de ser definido': function(test) {
+            test.equal(danfe.getValorTotalDaNota(), 0);
+            test.done();
+        },
+
+        'É possível recuperar o valor definido': function(test) {
+            danfe.comValorTotalDaNota(1350.25);
+            test.equal(danfe.getValorTotalDaNota(), 1350.25);
+            test.done();
+        }
+    },
+
+    comValorTotalDosProdutos: {
+        'É possível definir': function(test) {
+            test.doesNotThrow(function() {
+                danfe.comValorTotalDosProdutos(550.31);
+            });
+
+            test.done();
+        }
+    },
+
+    getValorTotalDosProdutosFormatado: {
+        'Retorna o valor formatado sem o símbolo': function(test) {
+            danfe.comValorTotalDosProdutos(550.31);
+            test.equal(danfe.getValorTotalDosProdutosFormatado(), '550,31');
+            test.done();
+        },
+    },
+
+    getValorTotalDosProdutos: {
+        'Retorna 0 antes de ser definido': function(test) {
+            test.equal(danfe.getValorTotalDosProdutos(), 0);
+            test.done();
+        },
+
+        'É possível recuperar o valor definido': function(test) {
+            danfe.comValorTotalDosProdutos(550.31);
+            test.equal(danfe.getValorTotalDosProdutos(), 550.31);
+            test.done();
+        }
+    },
+
+    comValorTotalDosServicos: {
+        'É possível definir': function(test) {
+            test.doesNotThrow(function() {
+                danfe.comValorTotalDosServicos(12328.97);
+            });
+
+            test.done();
+        }
+    },
+
+    getValorTotalDosServicosFormatado: {
+        'Retorna valor formatado sem o símbolo': function(test) {
+            danfe.comValorTotalDosServicos(12328.97);
+            test.equal(danfe.getValorTotalDosServicosFormatado(), '12.328,97');
+            test.done();
+        }
+    },
+
+    getValorTotalDosServicos: {
+        'Retorna 0 antes de ser definido': function(test) {
+            test.equal(danfe.getValorTotalDosServicos(), 0);
+            test.done();
+        },
+
+        'É possível recuperar o valor definido': function(test) {
+            danfe.comValorTotalDosServicos(12328.97);
+            test.equal(danfe.getValorTotalDosServicos(), 12328.97);
+            test.done();
+        }
     },
 
     comOrientacao: {
@@ -511,7 +601,9 @@ module.exports = {
         'Define um objeto de protocolo': function(test) {
             var protocolo = {};
 
-            danfe.comProtocolo(protocolo);
+            test.doesNotThrow(function() {
+                danfe.comProtocolo(protocolo);
+            });
 
             test.equal(danfe.getProtocolo(), protocolo);
             test.done();
@@ -519,10 +611,10 @@ module.exports = {
     },
 
     getProtocolo: {
-        'Retorna nulo caso o protocolo ainda não tenha sido definido': function(test) {
-            test.equal(danfe.getProtocolo(), null);
+        'Verifica que a danfe é instânciada com um protocolo vazio': function(test) {
+            test.ok(danfe.getProtocolo() instanceof Protocolo);
             test.done();
-        },
+        }
     },
 
     comEmitente: {
@@ -573,7 +665,7 @@ module.exports = {
     },
 
     getTransportador: {
-        'Retorna nulo caso o transportador ainda não tenha sido definido': function(test) {
+        'Retorna transportador vazio caso ainda não tenha sido definido': function(test) {
             test.ok(danfe.getTransportador() instanceof Transportador);
             test.done();
         },
@@ -591,8 +683,8 @@ module.exports = {
     },
 
     getImpostos: {
-        'Retorna nulo caso os impostos ainda não tenha sido definido': function(test) {
-            test.equal(danfe.getImpostos(), null);
+        'Retorna impostos vazios caso ainda não tenha sido definido': function(test) {
+            test.ok(danfe.getImpostos() instanceof Impostos);
             test.done();
         },
     },
