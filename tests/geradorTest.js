@@ -114,37 +114,23 @@ module.exports = {
         danfe.comDesconto(1.07);
         danfe.comOutrasDespesas(13.32);
 
-        danfe.adicionarItem(new Item()
-            .comCodigo('001')
-            .comDescricao('Produto de teste com o nome grande para testar a quebra de linha')
-            .comNcmSh('15156000')
-            .comOCst('020')
-            .comCfop('6101')
-            .comUnidade('LT')
-            .comQuantidade(3.1415)
-            .comValorUnitario(2.31)
-            .comValorTotal(7.13)
-            .comBaseDeCalculoDoIcms(5.01)
-            .comValorDoIcms(0.67)
-            .comValorDoIpi(0.03)
-            .comAliquotaDoIcms(0.1753)
-            .comAliquotaDoIpi(0.0034));
-
-        danfe.adicionarItem(new Item()
-            .comCodigo('412')
-            .comDescricao('Produto 2')
-            .comNcmSh('15156000')
-            .comOCst('020')
-            .comCfop('6101')
-            .comUnidade('LT')
-            .comQuantidade(3.1415)
-            .comValorUnitario(2.31)
-            .comValorTotal(7.13)
-            .comBaseDeCalculoDoIcms(5.01)
-            .comValorDoIcms(0.67)
-            .comValorDoIpi(0.03)
-            .comAliquotaDoIcms(0.1753)
-            .comAliquotaDoIpi(0.0034));
+        for (var i = 0; i < 8; i++) {
+            danfe.adicionarItem(new Item()
+                .comCodigo('' + i)
+                .comDescricao('Produto')
+                .comNcmSh('15156000')
+                .comOCst('020')
+                .comCfop('6101')
+                .comUnidade('LT')
+                .comQuantidade(3.1415)
+                .comValorUnitario(2.31)
+                .comValorTotal(7.13)
+                .comBaseDeCalculoDoIcms(5.01)
+                .comValorDoIcms(0.67)
+                .comValorDoIpi(0.03)
+                .comAliquotaDoIcms(0.1753)
+                .comAliquotaDoIpi(0.0034));
+        }
 
         gerador = new Gerador(danfe);
         callback();
