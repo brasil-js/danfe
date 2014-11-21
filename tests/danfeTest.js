@@ -164,6 +164,11 @@ module.exports = {
     },
 
     getChaveDeAcesso: {
+        'Retorna string vazia se não definida': function(test) {
+            test.ok(danfe.getChaveDeAcesso() === '');
+            test.done();
+        },
+
         'Permite uma chave de acesso válida': function(test) {
             test.doesNotThrow(function() {
                 danfe.comChaveDeAcesso('52131000132781000178551000000153401000153408');
@@ -184,6 +189,11 @@ module.exports = {
     },
 
     getChaveDeAcessoFormatada: {
+        'Retorna string vazia se não definida': function(test) {
+            test.ok(danfe.getChaveDeAcessoFormatada() === '');
+            test.done();
+        },
+
         'Retorna chave de acesso com formatação padrão': function(test) {
             danfe.comChaveDeAcesso('52131000132781000178551000000153401000153408');
             test.equal(danfe.getChaveDeAcessoFormatada(), '5213 1000 1327 8100 0178 5510 0000 0153 4010 0015 3408');

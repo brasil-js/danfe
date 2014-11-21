@@ -91,6 +91,7 @@ module.exports = {
         volumes.comPesoLiquido('1.120Kg');
 
         var danfe = new Danfe();
+        danfe.comChaveDeAcesso('52131000132781000178551000000153401000153408');
         danfe.comEmitente(emitente);
         danfe.comDestinatario(destinatario);
         danfe.comTransportador(transportador);
@@ -152,6 +153,7 @@ module.exports = {
     gerarPDF: {
         'Testa geração do PDF': function(test) {
             gerador.gerarPDF({
+                ambiente: 'homologacao',
                 ajusteYDoLogotipo: -4,
                 ajusteYDaIdentificacaoDoEmitente: 4,
                 creditos: 'Gammasoft Desenvolvimento de Software Ltda - http://opensource.gammasoft.com.br'
