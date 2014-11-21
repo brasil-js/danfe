@@ -10,6 +10,8 @@ var fs = require('fs'),
     Transportador = require('../lib/transportador'),
     Endereco = require('../lib/endereco'),
     Protocolo = require('../lib/protocolo'),
+    Impostos = require('../lib/impostos'),
+    Volumes = require('../lib/volumes'),
 
     pathDoArquivoPdf = path.join(__dirname, 'danfe.pdf'),
     gerador;
@@ -18,6 +20,7 @@ module.exports = {
     setUp: function(callback) {
         var emitente = new Emitente();
         emitente.comNome('Acme Indústria de Testes Unitários S/A');
+        emitente.comLogotipo(path.join(__dirname, './logotipo.png'));
         emitente.comRegistroNacional('14.625.996/0001-35');
         emitente.comInscricaoEstadual('03.707.130-0');
         emitente.comTelefone('(61) 3322-4455');
@@ -50,6 +53,9 @@ module.exports = {
         transportador.comNome('Carroceria Cheia Transportes Ltda');
         transportador.comRegistroNacional('28.124.151/0001-70');
         transportador.comInscricaoEstadual('0731778300131');
+        transportador.comCodigoAntt('ASDASD');
+        transportador.comPlacaDoVeiculo('ZZZ-9090');
+        transportador.comUfDaPlacaDoVeiculo('AP');
         transportador.comEndereco(new Endereco()
                     .comLogradouro('Rua Imaginária')
                     .comNumero('S/N')
@@ -63,23 +69,49 @@ module.exports = {
         protocolo.comCodigo('123451234512345');
         protocolo.comData(new Date(2014, 10, 19, 13, 24, 35));
 
+        var impostos = new Impostos();
+        impostos.comBaseDeCalculoDoIcms(100);
+        impostos.comValorDoIcms(17.5);
+        impostos.comBaseDeCalculoDoIcmsSt(90);
+        impostos.comValorDoIcmsSt(6.83);
+        impostos.comValorDoImpostoDeImportacao(80);
+        impostos.comValorDoPis(70);
+        impostos.comValorTotalDoIpi(60);
+        impostos.comValorDaCofins(50);
+        impostos.comBaseDeCalculoDoIssqn(40);
+        impostos.comValorTotalDoIssqn(30);
+
+        var volumes = new Volumes();
+        volumes.comQuantidade(1342);
+        volumes.comEspecie('À GRANEL');
+        volumes.comMarca('Apple');
+        volumes.comNumeracao('AB73256343-4');
+        volumes.comPesoBruto('1.578Kg');
+        volumes.comPesoLiquido('1.120Kg');
+
         var danfe = new Danfe();
-        danfe.comEmitente(emitente);
-        danfe.comDestinatario(destinatario);
-        danfe.comTransportador(transportador);
-        danfe.comProtocolo(protocolo);
-        danfe.comTipo('saida');
-        danfe.comNaturezaDaOperacao('VENDA');
-        danfe.comNumero(1420);
-        danfe.comSerie(100);
-        danfe.comDataDaEmissao(new Date(2014, 10, 19));
-        danfe.comDataDaEntradaOuSaida(new Date(2014, 10, 19, 12, 43, 59));
-        danfe.comModalidadeDoFrete('porContaDoDestinatarioRemetente');
-        danfe.comInscricaoEstadualDoSubstitutoTributario('102959579');
-        danfe.comInformacoesComplementares('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum explicabo reprehenderit optio amet ab temporibus asperiores quasi cupiditate. Voluptatum ducimus voluptates voluptas? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum nihil aut nostrum');
-        danfe.comValorTotalDaNota(250.13);
-        danfe.comValorTotalDosProdutos(120.10);
-        danfe.comValorTotalDosServicos(130.03);
+        // danfe.comEmitente(emitente);
+        // danfe.comDestinatario(destinatario);
+        // danfe.comTransportador(transportador);
+        // danfe.comProtocolo(protocolo);
+        // danfe.comImpostos(impostos);
+        // danfe.comVolumes(volumes);
+        // danfe.comTipo('saida');
+        // danfe.comNaturezaDaOperacao('VENDA');
+        // danfe.comNumero(1420);
+        // danfe.comSerie(100);
+        // danfe.comDataDaEmissao(new Date(2014, 10, 19));
+        // danfe.comDataDaEntradaOuSaida(new Date(2014, 10, 19, 12, 43, 59));
+        // danfe.comModalidadeDoFrete('porContaDoDestinatarioRemetente');
+        // danfe.comInscricaoEstadualDoSubstitutoTributario('102959579');
+        // danfe.comInformacoesComplementares('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum explicabo reprehenderit optio amet ab temporibus asperiores quasi cupiditate. Voluptatum ducimus voluptates voluptas? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum nihil aut nostrum');
+        // danfe.comValorTotalDaNota(250.13);
+        // danfe.comValorTotalDosProdutos(120.10);
+        // danfe.comValorTotalDosServicos(130.03);
+        // danfe.comValorDoFrete(23.34);
+        // danfe.comValorDoSeguro(78.65);
+        // danfe.comDesconto(1.07);
+        // danfe.comOutrasDespesas(13.32);
 
         gerador = new Gerador(danfe);
         callback();

@@ -9,6 +9,7 @@ var gammautils = require('gammautils'),
     Transportador = require('../lib/transportador'),
     Protocolo = require('../lib/protocolo'),
     Impostos = require('../lib/impostos'),
+    Volumes = require('../lib/volumes'),
     danfe;
 
 module.exports = {
@@ -521,6 +522,130 @@ module.exports = {
         }
     },
 
+    comValorDoFrete: {
+        'É possível definir': function(test) {
+            test.doesNotThrow(function() {
+                danfe.comValorDoFrete(100);
+            });
+
+            test.done();
+        }
+    },
+
+    getValorDoFreteFormatado: {
+        'Retorna valor formatado corretamente': function(test) {
+            danfe.comValorDoFrete(100);
+            test.equal(danfe.getValorDoFreteFormatado(), '100,00');
+            test.done();
+        }
+    },
+
+    getValorDoFrete: {
+        'Retorna zero antes de ser definido': function(test) {
+            test.equal(danfe.getValorDoFrete(), 0);
+            test.done();
+        },
+
+        'É possível recuperar o valor definido': function(test) {
+            danfe.comValorDoFrete(100);
+            test.equal(danfe.getValorDoFrete(), 100);
+            test.done();
+        }
+    },
+
+    comValorDoSeguro: {
+        'É possível definir': function(test) {
+            test.doesNotThrow(function() {
+                danfe.comValorDoSeguro(110);
+            });
+
+            test.done();
+        }
+    },
+
+    getValorDoSeguroFormatado: {
+        'Retorna valor formatado corretamente': function(test) {
+            danfe.comValorDoSeguro(110);
+            test.equal(danfe.getValorDoSeguroFormatado(), '110,00');
+            test.done();
+        }
+    },
+
+    getValorDoSeguro: {
+        'Retorna zero antes de ser definido': function(test) {
+            test.equal(danfe.getValorDoSeguro(), 0);
+            test.done();
+        },
+
+        'É possível recuperar o valor definido': function(test) {
+            danfe.comValorDoSeguro(110);
+            test.equal(danfe.getValorDoSeguro(), 110);
+            test.done();
+        }
+    },
+
+    comDesconto: {
+        'É possível definir': function(test) {
+            test.doesNotThrow(function() {
+                danfe.comDesconto(120);
+            });
+
+            test.done();
+        }
+    },
+
+    getDescontoFormatado: {
+        'Retorna valor formatado corretamente': function(test) {
+            danfe.comDesconto(120);
+            test.equal(danfe.getDescontoFormatado(), '120,00');
+            test.done();
+        }
+    },
+
+    getDesconto: {
+        'Retorna zero antes de ser definido': function(test) {
+            test.equal(danfe.getDesconto(), 0);
+            test.done();
+        },
+
+        'É possível recuperar o valor definido': function(test) {
+            danfe.comDesconto(120);
+            test.equal(danfe.getDesconto(), 120);
+            test.done();
+        }
+    },
+
+    comOutrasDespesas: {
+        'É possível definir': function(test) {
+            test.doesNotThrow(function() {
+                danfe.comOutrasDespesas(140);
+            });
+
+            test.done();
+        }
+    },
+
+    getOutrasDespesasFormatado: {
+        'Retorna valor formatado corretamente': function(test) {
+            danfe.comOutrasDespesas(140);
+            test.equal(danfe.getOutrasDespesasFormatado(), '140,00');
+            test.done();
+        }
+    },
+
+    getOutrasDespesas: {
+        'Retorna zero antes de ser definido': function(test) {
+            test.equal(danfe.getOutrasDespesas(), 0);
+            test.done();
+        },
+
+        'É possível recuperar o valor definido': function(test) {
+            danfe.comOutrasDespesas(140);
+            test.equal(danfe.getOutrasDespesas(), 140);
+            test.done();
+        }
+    },
+
     getHorarioDaEntradaOuSaida: {
         'É possível obter o horário da entrada ou saída formatado em HH:mm:ss': function(test) {
             danfe.comDataDaEntradaOuSaida('2014-11-17T19:44:39.699Z');
@@ -685,6 +810,24 @@ module.exports = {
     getImpostos: {
         'Retorna impostos vazios caso ainda não tenha sido definido': function(test) {
             test.ok(danfe.getImpostos() instanceof Impostos);
+            test.done();
+        },
+    },
+
+    comVolumes: {
+        'Define um objeto de volumes': function(test) {
+            var volumes = {};
+
+            danfe.comVolumes(volumes);
+
+            test.equal(danfe.getVolumes(), volumes);
+            test.done();
+        },
+    },
+
+    getVolumes: {
+        'Retorna volumes vazios caso ainda não tenha sido definido': function(test) {
+            test.ok(danfe.getVolumes() instanceof Volumes);
             test.done();
         },
     },
