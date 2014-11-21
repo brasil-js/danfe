@@ -24,7 +24,7 @@ module.exports = {
         test.equal(typeof app.Destinatario, 'function');
         test.equal(typeof app.Transportador, 'function');
         test.equal(typeof app.Endereco, 'function');
-        test.equal(typeof app.Produto, 'function');
+        test.equal(typeof app.Item, 'function');
         test.equal(typeof app.Protocolo, 'function');
         test.equal(typeof app.Gerador, 'function');
         test.equal(typeof app.Impostos, 'function');
