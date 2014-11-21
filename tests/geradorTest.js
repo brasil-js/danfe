@@ -12,6 +12,7 @@ var fs = require('fs'),
     Protocolo = require('../lib/protocolo'),
     Impostos = require('../lib/impostos'),
     Volumes = require('../lib/volumes'),
+    Item = require('../lib/item'),
 
     pathDoArquivoPdf = path.join(__dirname, 'danfe.pdf'),
     gerador;
@@ -90,28 +91,60 @@ module.exports = {
         volumes.comPesoLiquido('1.120Kg');
 
         var danfe = new Danfe();
-        // danfe.comEmitente(emitente);
-        // danfe.comDestinatario(destinatario);
-        // danfe.comTransportador(transportador);
-        // danfe.comProtocolo(protocolo);
-        // danfe.comImpostos(impostos);
-        // danfe.comVolumes(volumes);
-        // danfe.comTipo('saida');
-        // danfe.comNaturezaDaOperacao('VENDA');
-        // danfe.comNumero(1420);
-        // danfe.comSerie(100);
-        // danfe.comDataDaEmissao(new Date(2014, 10, 19));
-        // danfe.comDataDaEntradaOuSaida(new Date(2014, 10, 19, 12, 43, 59));
-        // danfe.comModalidadeDoFrete('porContaDoDestinatarioRemetente');
-        // danfe.comInscricaoEstadualDoSubstitutoTributario('102959579');
-        // danfe.comInformacoesComplementares('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum explicabo reprehenderit optio amet ab temporibus asperiores quasi cupiditate. Voluptatum ducimus voluptates voluptas? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum nihil aut nostrum');
-        // danfe.comValorTotalDaNota(250.13);
-        // danfe.comValorTotalDosProdutos(120.10);
-        // danfe.comValorTotalDosServicos(130.03);
-        // danfe.comValorDoFrete(23.34);
-        // danfe.comValorDoSeguro(78.65);
-        // danfe.comDesconto(1.07);
-        // danfe.comOutrasDespesas(13.32);
+        danfe.comEmitente(emitente);
+        danfe.comDestinatario(destinatario);
+        danfe.comTransportador(transportador);
+        danfe.comProtocolo(protocolo);
+        danfe.comImpostos(impostos);
+        danfe.comVolumes(volumes);
+        danfe.comTipo('saida');
+        danfe.comNaturezaDaOperacao('VENDA');
+        danfe.comNumero(1420);
+        danfe.comSerie(100);
+        danfe.comDataDaEmissao(new Date(2014, 10, 19));
+        danfe.comDataDaEntradaOuSaida(new Date(2014, 10, 19, 12, 43, 59));
+        danfe.comModalidadeDoFrete('porContaDoDestinatarioRemetente');
+        danfe.comInscricaoEstadualDoSubstitutoTributario('102959579');
+        danfe.comInformacoesComplementares('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum explicabo reprehenderit optio amet ab temporibus asperiores quasi cupiditate. Voluptatum ducimus voluptates voluptas? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum nihil aut nostrum');
+        danfe.comValorTotalDaNota(250.13);
+        danfe.comValorTotalDosProdutos(120.10);
+        danfe.comValorTotalDosServicos(130.03);
+        danfe.comValorDoFrete(23.34);
+        danfe.comValorDoSeguro(78.65);
+        danfe.comDesconto(1.07);
+        danfe.comOutrasDespesas(13.32);
+
+        danfe.adicionarItem(new Item()
+            .comCodigo('001')
+            .comDescricao('Produto de teste com o nome grande para testar a quebra de linha')
+            .comNcmSh('15156000')
+            .comOCst('020')
+            .comCfop('6101')
+            .comUnidade('LT')
+            .comQuantidade(3.1415)
+            .comValorUnitario(2.31)
+            .comValorTotal(7.13)
+            .comBaseDeCalculoDoIcms(5.01)
+            .comValorDoIcms(0.67)
+            .comValorDoIpi(0.03)
+            .comAliquotaDoIcms(0.1753)
+            .comAliquotaDoIpi(0.0034));
+
+        danfe.adicionarItem(new Item()
+            .comCodigo('412')
+            .comDescricao('Produto 2')
+            .comNcmSh('15156000')
+            .comOCst('020')
+            .comCfop('6101')
+            .comUnidade('LT')
+            .comQuantidade(3.1415)
+            .comValorUnitario(2.31)
+            .comValorTotal(7.13)
+            .comBaseDeCalculoDoIcms(5.01)
+            .comValorDoIcms(0.67)
+            .comValorDoIpi(0.03)
+            .comAliquotaDoIcms(0.1753)
+            .comAliquotaDoIpi(0.0034));
 
         gerador = new Gerador(danfe);
         callback();
