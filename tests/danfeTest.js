@@ -683,41 +683,41 @@ module.exports = {
         },
     },
 
-    adicionarProduto: {
-        'Adicionar produto incrementa o array de produtos': function(test) {
-            danfe.adicionarProduto({});
-            test.equal(danfe.getProdutos().length, 1);
+    adicionarItem: {
+        'Adicionar item incrementa o array de produtos': function(test) {
+            danfe.adicionarItem({});
+            test.equal(danfe.getItens().length, 1);
 
-            danfe.adicionarProduto({});
-            test.equal(danfe.getProdutos().length, 2);
-
-            test.done();
-        },
-
-        'Pode-se adicionar produtos com interface fluente': function(test) {
-            danfe.adicionarProduto({}).adicionarProduto({});
-            test.equal(danfe.getProdutos().length, 2);
+            danfe.adicionarItem({});
+            test.equal(danfe.getItens().length, 2);
 
             test.done();
         },
-    },
 
-    comProdutos: {
-        'Sobrescreve o array de produtos com um novo': function(test) {
-            danfe.comProdutos([{}, {}]);
-            test.equal(danfe.getProdutos().length, 2);
-
-            danfe.comProdutos(['produto1', 'produto2', 'produto2']);
-            test.equal(danfe.getProdutos().length, 3);
+        'Pode-se adicionar itens com interface fluente': function(test) {
+            danfe.adicionarItem({}).adicionarItem({});
+            test.equal(danfe.getItens().length, 2);
 
             test.done();
         },
     },
 
-    getProdutos: {
-        'Retorna um array vazio mesmo antes de ter algum produto': function(test) {
-            test.ok(Array.isArray(danfe.getProdutos()));
-            test.equal(danfe.getProdutos().length, 0);
+    comItens: {
+        'Sobrescreve o array de itens com um novo': function(test) {
+            danfe.comItens([{}, {}]);
+            test.equal(danfe.getItens().length, 2);
+
+            danfe.comItens(['produto1', 'serviço1', 'produto2']);
+            test.equal(danfe.getItens().length, 3);
+
+            test.done();
+        },
+    },
+
+    getItens: {
+        'Retorna um array vazio mesmo antes de ter algum item': function(test) {
+            test.ok(Array.isArray(danfe.getItens()));
+            test.equal(danfe.getItens().length, 0);
             test.done();
         },
     },
