@@ -33,7 +33,7 @@ module.exports = function(grunt) {
                 unused: true,
                 strict: true,
                 trailing: true,
-                maxparams: 7,
+                // maxparams: 3,
                 maxdepth: 3
             }
         }
