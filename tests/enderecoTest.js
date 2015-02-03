@@ -324,7 +324,15 @@ module.exports = {
             });
 
             test.done();
-        }
+        },
+        'Não lança erro caso passe uf undefined ou null': function(test) {
+            test.doesNotThrow(function() {
+                endereco.comUf(null);
+                endereco.comUf({}.naoDefinido);
+            });
+
+            test.done();
+        },
     },
 
     getUf: {

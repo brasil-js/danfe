@@ -94,6 +94,19 @@ module.exports = {
         },
     },
 
+    getPlacaDoVeiculoFormatada: {
+        'Retorna string vazia antes de ser definido': function(test) {
+            test.equal(transportador.getPlacaDoVeiculoFormatada(), '');
+            test.done();
+        },
+
+        'Aplica formatação corretamente': function(test) {
+            transportador.comPlacaDoVeiculo('ABC1234');
+            test.equal(transportador.getPlacaDoVeiculoFormatada(), 'ABC-1234');
+            test.done();
+        }
+    },
+
     comUfDaPlacaDoVeiculo: {
         'É possível definir': function(test) {
             test.doesNotThrow(function() {
