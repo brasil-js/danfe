@@ -677,6 +677,15 @@ module.exports = {
             test.equal(typeof danfe.getInformacoesComplementares(), 'string');
             test.done();
         },
+
+        'Não lança erro se passar informações null ou undefined': function(test) {
+            test.doesNotThrow(function() {
+                danfe.comInformacoesComplementares(null);
+                danfe.comInformacoesComplementares({}.naoDefinido);
+            });
+
+            test.done();
+        }
     },
 
     getInformacoesComplementares: {

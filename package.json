@@ -1,6 +1,6 @@
 {
   "name": "danfe",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Módulo node.js para gerar DANFEs em .pdf",
   "main": "app.js",
   "scripts": {
