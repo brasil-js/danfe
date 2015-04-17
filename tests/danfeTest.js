@@ -77,7 +77,7 @@ module.exports = {
 
         'Retorna a série com três digitos e zeros a esquerda': function(test) {
             danfe.comSerie(1);
-            test.equal(danfe.getSerieFormatada(), 'Série 001');
+            test.equal(danfe.getSerieFormatada(), 'SÉRIE 001');
             test.done();
         },
     },

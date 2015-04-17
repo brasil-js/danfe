@@ -14,6 +14,25 @@ module.exports = {
         callback();
     },
 
+    comInformacoesAdicionais: {
+        'É possível definir': function(test) {
+            test.doesNotThrow(function() {
+                item.comInformacoesAdicionais('INF AD');
+            });
+
+            test.done();
+        },
+    },
+
+    getInformacoesAdicionais: {
+        'É possível definir': function(test) {
+            item.comInformacoesAdicionais('INF AD');
+
+            test.equal(item.getInformacoesAdicionais(), 'INF AD');
+            test.done();
+        },
+    },
+
     comCodigo: {
         'É possível definir': function(test) {
             test.doesNotThrow(function() {
