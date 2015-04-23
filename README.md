@@ -11,6 +11,10 @@ Veja uma [DANFE de exemplo aqui](https://s3-sa-east-1.amazonaws.com/gammasoft/op
 
 Via NPM: `npm install danfe`
 
+#### Changelog
+
+Clique [aqui](https://github.com/brasil-js/danfe/releases) para saber o que há de novo a cada versão!
+
 #### Utilização
 
 ```javascript
