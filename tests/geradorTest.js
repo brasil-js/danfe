@@ -8,7 +8,7 @@ var fs = require('fs'),
     FormularioDeSeguranca = require('../lib/formularioDeSeguranca'),
     Emitente = require('../lib/emitente'),
     Fatura = require('../lib/fatura'),
-    Duplicata = require('../lib/duplicata'),
+    // Duplicata = require('../lib/duplicata'),
     Destinatario = require('../lib/destinatario'),
     Transportador = require('../lib/transportador'),
     Endereco = require('../lib/endereco'),
@@ -95,10 +95,10 @@ module.exports = {
         volumes.comPesoLiquido('1.120Kg');
 
         var fatura = new Fatura();
-        fatura.comNumero(13243);
-        fatura.comValorOriginal(230.40);
-        fatura.comValorDoDesconto(0.40);
-        fatura.comValorLiquido(230);
+        // fatura.comNumero(13243);
+        // fatura.comValorOriginal(230.40);
+        // fatura.comValorDoDesconto(0.40);
+        // fatura.comValorLiquido(230);
         fatura.comPagamentoAPrazo();
 
         var formularioDeSeguranca = new FormularioDeSeguranca();
@@ -118,14 +118,14 @@ module.exports = {
         danfe.comVolumes(volumes);
         danfe.comFatura(fatura);
 
-        for (var w = 0; w < 12; w++) {
-            var duplicata = new Duplicata();
-            duplicata.comNumero(w);
-            duplicata.comVencimento(new Date(2016, w, 10));
-            duplicata.comValor(20.30 + (w * 4));
+        // for (var w = 0; w < 12; w++) {
+        //     var duplicata = new Duplicata();
+        //     duplicata.comNumero(w);
+        //     duplicata.comVencimento(new Date(2016, w, 10));
+        //     duplicata.comValor(20.30 + (w * 4));
 
-            danfe.adicionarDuplicata(duplicata);
-        }
+        //     danfe.adicionarDuplicata(duplicata);
+        // }
 
         danfe.comTipo('saida');
         danfe.comNaturezaDaOperacao('VENDA');
