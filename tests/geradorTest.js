@@ -5,7 +5,10 @@ var fs = require('fs'),
 
     Gerador = require('../lib/gerador'),
     Danfe = require('../lib/danfe'),
+    FormularioDeSeguranca = require('../lib/formularioDeSeguranca'),
     Emitente = require('../lib/emitente'),
+    Fatura = require('../lib/fatura'),
+    Duplicata = require('../lib/duplicata'),
     Destinatario = require('../lib/destinatario'),
     Transportador = require('../lib/transportador'),
     Endereco = require('../lib/endereco'),
@@ -24,6 +27,7 @@ module.exports = {
         emitente.comLogotipo(path.join(__dirname, './logotipo.png'));
         emitente.comRegistroNacional('14.625.996/0001-35');
         emitente.comInscricaoEstadual('03.707.130-0');
+        emitente.comInscricaoMunicipal('12.34.56-78');
         emitente.comTelefone('(61) 3322-4455');
         emitente.comEmail('contato@acme.ind.br');
         emitente.comEndereco(new Endereco()
@@ -79,8 +83,8 @@ module.exports = {
         impostos.comValorDoPis(70);
         impostos.comValorTotalDoIpi(60);
         impostos.comValorDaCofins(50);
-        impostos.comBaseDeCalculoDoIssqn(40);
-        impostos.comValorTotalDoIssqn(30);
+        // impostos.comBaseDeCalculoDoIssqn(40);
+        // impostos.comValorTotalDoIssqn(30);
 
         var volumes = new Volumes();
         volumes.comQuantidade(1342);
@@ -90,14 +94,39 @@ module.exports = {
         volumes.comPesoBruto('1.578Kg');
         volumes.comPesoLiquido('1.120Kg');
 
+        var fatura = new Fatura();
+        fatura.comNumero(13243);
+        fatura.comValorOriginal(230.40);
+        fatura.comValorDoDesconto(0.40);
+        fatura.comValorLiquido(230);
+        fatura.comPagamentoAPrazo();
+
+        var formularioDeSeguranca = new FormularioDeSeguranca();
+        formularioDeSeguranca.comDestaqueDeIcmsProprio(true);
+        formularioDeSeguranca.comDestaqueDeIcmsPorST(false);
+        formularioDeSeguranca.comJustificativa('PROBLEMAS COM A INTERNET');
+        formularioDeSeguranca.comDataDaEntradaEmContingencia(new Date());
+
         var danfe = new Danfe();
         danfe.comChaveDeAcesso('52131000132781000178551000000153401000153408');
+        danfe.comFormularioDeSeguranca(formularioDeSeguranca);
         danfe.comEmitente(emitente);
         danfe.comDestinatario(destinatario);
         danfe.comTransportador(transportador);
         danfe.comProtocolo(protocolo);
         danfe.comImpostos(impostos);
         danfe.comVolumes(volumes);
+        danfe.comFatura(fatura);
+
+        for (var w = 0; w < 12; w++) {
+            var duplicata = new Duplicata();
+            duplicata.comNumero(w);
+            duplicata.comVencimento(new Date(2016, w, 10));
+            duplicata.comValor(20.30 + (w * 4));
+
+            danfe.adicionarDuplicata(duplicata);
+        }
+
         danfe.comTipo('saida');
         danfe.comNaturezaDaOperacao('VENDA');
         danfe.comNumero(1420);
@@ -119,6 +148,7 @@ module.exports = {
             danfe.adicionarItem(new Item()
                 .comCodigo('' + i)
                 .comDescricao('Produto')
+                .comInformacoesAdicionais('Informação adicional!')
                 .comNcmSh('15156000')
                 .comOCst('020')
                 .comCfop('6101')

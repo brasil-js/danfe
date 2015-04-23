@@ -1,6 +1,6 @@
 {
   "name": "danfe",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Módulo node.js para gerar DANFEs em .pdf",
   "main": "app.js",
   "scripts": {
@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/brasil-js/danfe",
   "dependencies": {
-    "brasil": "0.0.33",
+    "brasil": "0.0.37",
     "gammautils": "0.0.67",
     "inscricaoestadual": "0.0.2",
     "pdfkit": "^0.7.0"
