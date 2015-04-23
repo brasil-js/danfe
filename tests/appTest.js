@@ -29,12 +29,15 @@ module.exports = {
         test.equal(typeof app.Gerador, 'function');
         test.equal(typeof app.Impostos, 'function');
         test.equal(typeof app.Volumes, 'function');
+        test.equal(typeof app.FormularioDeSeguranca, 'function');
+        test.equal(typeof app.Fatura, 'function');
+        test.equal(typeof app.Duplicata, 'function');
 
         test.done();
     },
 
     'Exporta 10 submodulos': function(test) {
-        test.equal(Object.keys(app).length, 10);
+        test.equal(Object.keys(app).length, 13);
         test.done();
     },
 };
