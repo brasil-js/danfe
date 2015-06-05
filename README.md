@@ -162,3 +162,7 @@ new Gerador(danfe).gerarPDF({
     pdf.pipe(fs.createWriteStream(pathDoArquivoPdf));
 });
 ```
+
+### Projeto Relacionado
+
+[webdanfe](https://github.com/renatoargh/webdanfe) - Gerador de DANFE em pdf utilizando a API do Webdanfe
